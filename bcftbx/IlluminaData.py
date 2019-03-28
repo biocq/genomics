@@ -2235,16 +2235,16 @@ class SampleSheetSample(object):
         """
         predicted_fastqs = []
         if self._predict_paired_end:
-            reads = (1,2)
+            reads = ("R1","R2")
         else:
-            reads = (1,)
+            reads = ("R1",)
         if self._predict_for_package == "bcl2fastq2":
             for barcode_seq in self.barcode_seqs:
                 # Check if we need to split lanes
                 if self._predict_no_lane_splitting:
                     # No lanes
                     for read in reads:
-                        fastq = "%s_S%d_R%d_001.fastq.gz" % \
+                        fastq = "%s_S%d_%s_001.fastq.gz" % \
                                 (self.sample_id,
                                  self.s_index,
                                  read)
@@ -2259,7 +2259,7 @@ class SampleSheetSample(object):
                         lanes = (1,)
                     for lane in lanes:
                         for read in reads:
-                            fastq = "%s_S%d_L%03d_R%d_001.fastq.gz" % \
+                            fastq = "%s_S%d_L%03d_%s_001.fastq.gz" % \
                                     (self.sample_id,
                                      self.s_index,
                                      lane,
@@ -2275,7 +2275,7 @@ class SampleSheetSample(object):
                     lanes = (1,)
                 for lane in lanes:
                     for read in reads:
-                        fastq = "%s_%s_L%03d_R%d_001.fastq.gz" % \
+                        fastq = "%s_%s_L%03d_%s_001.fastq.gz" % \
                                 (self.sample_id,
                                  barcode_seq,
                                  lane,read)
